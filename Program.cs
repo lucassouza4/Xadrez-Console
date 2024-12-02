@@ -3,8 +3,9 @@
 namespace xadrez{
     class Program{
         public static void Main(){
-            Posicao p = new(3,4);
-            Console.WriteLine(p);
+            Tabuleiro t = new(8,8);
+
+            Tela.ImprimirTabuleiro(t);
         }
     }
 }
