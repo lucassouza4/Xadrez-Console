@@ -2,13 +2,12 @@ namespace tabuleiro{
     class Tabuleiro(int linha, int coluna){
         public int Linha {get;set;} = linha;
         public int Coluna {get;set;} = coluna;
-        private Peca[,] Pecas = new Peca[linha, coluna];
+        private Peca?[,] Pecas = new Peca[linha, coluna];
 
-        public Peca PegarPeca(int linha, int coluna){
+        public Peca? PegarPeca(int linha, int coluna){
             return Pecas[linha,coluna];
         }
-
-        public Peca PegarPeca(Posicao pos){
+        public Peca? PegarPeca(Posicao pos){
             return Pecas[pos.Linha,pos.Coluna];
         }
         
@@ -21,6 +20,16 @@ namespace tabuleiro{
             if(ExistePeca(pos)) throw new TabuleiroException("Já existe uma peça nessa posição !!!");
             Pecas[pos.Linha,pos.Coluna] = p;
             p.Posicao = pos;
+        }
+
+        public Peca? RetirarPeca(Posicao pos){
+            Peca? aux = PegarPeca(pos);
+            if(aux == null){
+                return null;
+            }
+            aux.Posicao = null;
+            Pecas[pos.Linha,pos.Coluna] = null;
+            return aux;
         }
 
         public bool PosicaoValida(Posicao pos){

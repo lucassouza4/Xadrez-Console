@@ -5,16 +5,21 @@ namespace xadrez{
         public static void Main(){
             try
             {
-                PosicaoXadrez p = new('a',1);
-                Console.WriteLine(p.ToPosicao());
-                Tabuleiro tab = new(8,8);
+                PartidaXadrez partida = new();
+                
+                while(!partida.Terminada){
+                    Console.Clear();
+                    Tela.ImprimirTabuleiro(partida.Tabuleiro);
+                    Console.WriteLine();
 
-                tab.ColocarPeca(new Rei(tab,Cor.Branca),new(0,0));
-                tab.ColocarPeca(new Torre(tab,Cor.Branca),new(2,4));
-                tab.ColocarPeca(new Rei(tab,Cor.Preta),new(5,3));
-                tab.ColocarPeca(new Torre(tab,Cor.Preta),new(7,6));
+                    Console.Write("Origem: ");
+                    Posicao origem = Tela.LerPosicaoXadrez().ToPosicao();
 
-                Tela.ImprimirTabuleiro(tab); 
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
+
+                    partida.ExecutaMovimento(origem,destino);
+                }
             }
             catch (TabuleiroException e)
             {

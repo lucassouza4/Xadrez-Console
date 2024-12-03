@@ -6,12 +6,12 @@ namespace xadrez{
             for(int i = 0; i < tabuleiro.Linha; i++){
                 Console.Write($"{8-i} ");
                 for(int j = 0; j < tabuleiro.Coluna; j++){
-                    Peca peca = tabuleiro.PegarPeca(i,j);
+                    Peca? peca = tabuleiro.PegarPeca(i,j);
                     if(peca == null){
                         Console.Write("- ");
                     }
                     else{
-                        ImprimirPeca(tabuleiro.PegarPeca(i,j));
+                        ImprimirPeca(peca);
                         Console.Write(" ");
                     }
                 }
@@ -30,6 +30,13 @@ namespace xadrez{
                 Console.Write(peca);
                 Console.ForegroundColor = aux;
             }
+        }
+
+        public static PosicaoXadrez LerPosicaoXadrez(){
+            string input = Console.ReadLine() ?? "";
+            char coluna = input[0];
+            int linha = int.Parse(input[1]+"");
+            return new PosicaoXadrez(coluna,linha);
         }
     }
 }

@@ -4,5 +4,9 @@ namespace tabuleiro{
         public Cor Cor {get;protected set;} = cor;
         public int Movimentos {get;protected set;} = 0;
         public Tabuleiro Tabuleiro {get;protected set;} = tabuleiro;
+
+        public void IncrementarMovimento(){
+            Movimentos++;
+        }
     }
 }
