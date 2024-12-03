@@ -63,6 +63,7 @@ namespace xadrez{
         }
         public void RealizarJogada(Posicao origem, Posicao destino){
             Peca? p = ExecutaMovimento(origem,destino);
+
             if(EstaEmXeque(JogadorAtual)){
                 DesfazerMovimento(origem,destino,p);
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
@@ -70,9 +71,39 @@ namespace xadrez{
             if(EstaEmXeque(Adversario(JogadorAtual))){
                 Xeque = true;
             }
-            else Xeque = false;
-            Turno++;
-            MudaJogador();
+            else {
+                Xeque = false;
+            }
+            if(XequeMate(Adversario(JogadorAtual))){
+                Terminada = true;
+            }
+            else{
+                Turno++;
+                MudaJogador();
+            }
+        }
+        public bool XequeMate(Cor cor){
+            if(!EstaEmXeque(cor)){
+                return false;
+            }
+            foreach(Peca p in PecasEmJogo(cor)){
+                bool[,] aux = p.MovimentosPossiveis();
+                for(int i = 0; i < Tabuleiro.Linha; i++){
+                    for(int j = 0; j < Tabuleiro.Coluna; j++){
+                        if(aux[i,j] && p.Posicao != null){
+                            Posicao origem = p.Posicao;
+                            Posicao destino = new(i,j);
+                            Peca? pecaCapturada = ExecutaMovimento(origem,destino);
+                            bool testeXeque = EstaEmXeque(cor);
+                            DesfazerMovimento(origem,destino,pecaCapturada);
+                            if(!testeXeque){
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
         public void ValidarOrigem(Posicao pos){
             Peca? p = Tabuleiro.PegarPeca(pos);
@@ -132,6 +163,12 @@ namespace xadrez{
         }
         private void ColocarPecas(){
             ColocarNovaPeca('c',1,new Torre(Tabuleiro,Cor.Branca));
+            ColocarNovaPeca('d',1,new Rei(Tabuleiro,Cor.Branca));
+            ColocarNovaPeca('h',7,new Torre(Tabuleiro,Cor.Branca));
+
+            ColocarNovaPeca('a',8,new Rei(Tabuleiro,Cor.Preta));
+            ColocarNovaPeca('b',8,new Torre(Tabuleiro,Cor.Preta));
+            /*ColocarNovaPeca('c',1,new Torre(Tabuleiro,Cor.Branca));
             ColocarNovaPeca('c',2,new Torre(Tabuleiro,Cor.Branca));
             ColocarNovaPeca('d',2,new Torre(Tabuleiro,Cor.Branca));
             ColocarNovaPeca('e',2,new Torre(Tabuleiro,Cor.Branca));
@@ -143,7 +180,7 @@ namespace xadrez{
             ColocarNovaPeca('d',7,new Torre(Tabuleiro,Cor.Preta));
             ColocarNovaPeca('e',7,new Torre(Tabuleiro,Cor.Preta));
             ColocarNovaPeca('e',8,new Torre(Tabuleiro,Cor.Preta));
-            ColocarNovaPeca('d',8,new Rei(Tabuleiro,Cor.Preta));
+            ColocarNovaPeca('d',8,new Rei(Tabuleiro,Cor.Preta));*/
         }
     }
 }
