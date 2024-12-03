@@ -2,8 +2,8 @@ using tabuleiro;
 
 namespace xadrez{
     class PartidaXadrez{
-        private int Turno;
-        private Cor JogadorAtual;
+        public int Turno {get;private set;}
+        public Cor JogadorAtual {get;private set;}
         public Tabuleiro Tabuleiro {get;private set;}
         public bool Terminada {get;private set;}
 
@@ -20,6 +20,40 @@ namespace xadrez{
             p?.IncrementarMovimento();
             Peca? pecaCapturada = Tabuleiro.RetirarPeca(destino);
             Tabuleiro.ColocarPeca(p,destino);
+        }
+
+        public void RealizarJogada(Posicao origem, Posicao destino){
+            ExecutaMovimento(origem,destino);
+            Turno++;
+            MudaJogador();
+        }
+
+        public void ValidarOrigem(Posicao pos){
+            Peca? p = Tabuleiro.PegarPeca(pos);
+            if(p == null){
+                throw new TabuleiroException("Não existe peça na posição de origem!");
+            }
+            else if(JogadorAtual != p.Cor){
+                throw new TabuleiroException("Peça de origem não pertence ao jogador!");
+            }
+            else if(!p.ExisteMovimentosPossiveis()){
+                throw new TabuleiroException("Não há movimentos disponíveis para a peça de origem escolhida!");
+            }
+        }
+
+        public void ValidarDestino(Posicao origem, Posicao destino){
+            Peca? p = Tabuleiro.PegarPeca(origem);
+            if(p != null && !p.PodeMoverPara(destino)){
+                throw new TabuleiroException("Posição de destino inválida!");
+            }
+        }
+
+        private void MudaJogador(){
+            if(JogadorAtual == Cor.Branca){
+                JogadorAtual = Cor.Preta;
+            }else{
+                JogadorAtual = Cor.Branca;
+            }
         }
 
         private void ColocarPecas(){

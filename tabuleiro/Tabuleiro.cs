@@ -8,6 +8,7 @@ namespace tabuleiro{
             return Pecas[linha,coluna];
         }
         public Peca? PegarPeca(Posicao pos){
+            ValidarPosicao(pos);
             return Pecas[pos.Linha,pos.Coluna];
         }
         
@@ -17,7 +18,7 @@ namespace tabuleiro{
         }
 
         public void ColocarPeca(Peca p, Posicao pos){
-            if(ExistePeca(pos)) throw new TabuleiroException("Já existe uma peça nessa posição !!!");
+            if(ExistePeca(pos)) throw new TabuleiroException("Já existe uma peça nessa posição!");
             Pecas[pos.Linha,pos.Coluna] = p;
             p.Posicao = pos;
         }
@@ -39,7 +40,7 @@ namespace tabuleiro{
 
         public void ValidarPosicao(Posicao pos){
             if(!PosicaoValida(pos)){
-                throw new TabuleiroException("Posição inválida !!!");
+                throw new TabuleiroException("Posição inválida!");
             }
         }
     }

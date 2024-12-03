@@ -13,6 +13,22 @@ namespace tabuleiro{
             Peca? p = Tabuleiro.PegarPeca(pos);
             return p == null || p.Cor != Cor;
         }
+
+        public bool PodeMoverPara(Posicao pos){
+            return MovimentosPossiveis()[pos.Linha,pos.Coluna];
+        }
+
+        public bool ExisteMovimentosPossiveis(){
+            bool[,] mat = MovimentosPossiveis();
+            for(int i = 0; i < Tabuleiro.Linha; i++){
+                for(int j = 0; j < Tabuleiro.Coluna; j++){
+                    if(mat[i,j]){
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public abstract bool[,] MovimentosPossiveis();
     }
 }

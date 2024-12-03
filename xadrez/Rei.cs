@@ -7,7 +7,7 @@ namespace xadrez{
             bool[,] mat = new bool[Tabuleiro.Linha,Tabuleiro.Coluna];
             if (Tabuleiro == null)
             {
-                throw new TabuleiroException("O tabuleiro não pode ser nulo.");
+                throw new TabuleiroException("O tabuleiro não pode ser nulo!");
             }
             
             if(Posicao != null){
