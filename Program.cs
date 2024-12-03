@@ -3,9 +3,11 @@
 namespace xadrez{
     class Program{
         public static void Main(){
-            Tabuleiro t = new(8,8);
+            Tabuleiro tab = new(8,8);
 
-            Tela.ImprimirTabuleiro(t);
+            tab.ColocarPeca(new Rei(tab,Cor.Branca),new(0,0));
+
+            Tela.ImprimirTabuleiro(tab);
         }
     }
 }
