@@ -8,6 +8,9 @@ namespace tabuleiro{
         public void IncrementarMovimento(){
             Movimentos++;
         }
+        public void DecrementarMovimento(){
+            Movimentos--;
+        }
 
         public virtual bool PodeMover(Posicao pos){
             Peca? p = Tabuleiro.PegarPeca(pos);
