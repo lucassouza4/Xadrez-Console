@@ -5,6 +5,8 @@ namespace xadrez{
         public static void Main(){
             try
             {
+                PosicaoXadrez p = new('a',1);
+                Console.WriteLine(p.ToPosicao());
                 Tabuleiro tab = new(8,8);
 
                 tab.ColocarPeca(new Rei(tab,Cor.Branca),new(0,0));
