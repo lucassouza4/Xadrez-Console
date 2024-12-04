@@ -1,6 +1,7 @@
 using tabuleiro;
+using xadrez;
 
-namespace xadrez{
+namespace xadrezConsole{
     class Tela{
         public static void ImprimirPartida(PartidaXadrez partida){
             ImprimirTabuleiro(partida.Tabuleiro);

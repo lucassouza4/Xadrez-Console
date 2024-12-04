@@ -1,6 +1,7 @@
 ﻿using tabuleiro;
+using xadrez;
 
-namespace xadrez{
+namespace xadrezConsole{
     class Program{
         public static void Main(){
             PartidaXadrez partida = new();
